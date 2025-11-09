@@ -10,7 +10,7 @@ class HalamanController extends Controller
     { 
         $data = [
             'nama' => 'Firdaus Syazwana Handyana Putra',
-            'nidn' => '1234567890',
+            'nim' => '1234567890',
             'prodi' => 'Informatika'
         ];
 
@@ -24,7 +24,13 @@ class HalamanController extends Controller
 
     public function kontak()
     {
-        return view('halaman.kontak');
+        $data = [
+            'nama' => 'Firdaus Syazwana Handyana Putra',
+            'email' => 'firdaus20125100@digitechuniversity.ac.id',
+            'telepon' => '+62-858-5527-5077'
+        ];
+
+        return view('halaman.kontak', $data);
     }
 }
 

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Kontak</title>
-</head>
-<body>
-    <h1>Kontak</h1>
-    <p>Hubungi saya di: dausputra2003@gmail.com</p>
-</body>
-</html>
+@extends('layout.main')
+
+@section('title', 'Kontak')
+
+@section('content')
+    <h2>Kontak Saya</h2>
+    <ul>
+        <li>Nama: {{ $nama }}</li>
+        <li>Email: {{ $email }}</li>
+        <li>Telepon: {{ $telepon }}</li>
+    </ul>
+@endsection

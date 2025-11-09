@@ -1,0 +1,45 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+
+/* NAVBAR */
+/* ==================================================== */
+
+.navbar {
+    background-color: #212529!important;
+    padding: 8px 0;
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+.navbar .nav-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-brand img {
+    border-radius: 6px;
+}
+
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}

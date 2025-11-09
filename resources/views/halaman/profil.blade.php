@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profil</title>
-</head>
-<body>
-    <h1>Profil</h1>
-    <p>Nama: {{ $nama }}</p>
-    <p>NIDN: {{ $nidn }}</p>
-    <p>Program Studi: {{ $prodi }}</p>
-</body>
-</html>
+@extends('layout.main')
+
+@section('title', 'Profil')
+
+@section('content')
+    <h2>Profil Saya</h2>
+    <ul>
+        <li>Nama: {{ $nama }}</li>
+        <li>NIM/NPM: {{ $nim }}</li>
+        <li>Prodi: {{ $prodi }}</li>
+    </ul>
+@endsection
