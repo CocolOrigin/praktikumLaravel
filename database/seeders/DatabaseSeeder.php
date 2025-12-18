@@ -51,5 +51,19 @@ class DatabaseSeeder extends Seeder
         }
 
         echo "Seeded 20 authors, 9 categories, and 50 books with categorizing each random.\n";
+    
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'password' => bcrypt('12345678'),
+        ]);
+
+        User::factory()->create([
+            'name' => 'Firdaus',
+            'email' => 'dausputra2003@gmail.com',
+            'role' => 'user',
+            'password' => bcrypt('12345678'),
+        ]);
     }
 }

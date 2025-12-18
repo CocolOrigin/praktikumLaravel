@@ -10,17 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
+    //=========================================
+    // Menampilkan daftar buku
+    //=========================================
     public function index()
     {
-        // $books = Book::with('author')->get();
-        $books = Book::with(['author', 'categories'])->get();
+        $books = Book::with(['author', 'categories'])->latest()->get();
+        
         $categories = Category::all();
 
-        // dd($books->toArray());
-        return view('books.index', compact('books', 'categories'));
+        $authors = Author::all(); 
+
+        return view('books.index', compact('books', 'categories', 'authors'));
     }
 
-
+    //================================
+    // Menambahkan buku baru
+    //================================
     public function create()
     {
         $authors = Author::all();
@@ -61,7 +67,10 @@ class BookController extends Controller
             ->with('success', 'Buku berhasil ditambahkan.');
     }
 
-    public function delete(Book $book)
+    //================================
+    // Menghapus buku
+    //================================
+    public function destroy(Book $book)
     {
         $book->categories()->detach();
         $book->delete();
@@ -69,6 +78,40 @@ class BookController extends Controller
         return redirect()
             ->route('books.index')
             ->with('success', 'Buku berhasil dihapus.');
+    }
+
+    //================================
+    // Memperbarui buku
+    //================================
+    public function update(Request $request, Book $book)
+    {
+        $request->validate([
+            'title' => 'required',
+            'author_name' => 'required',
+            'isbn' => 'required|unique:books,isbn,' . $book->id,
+            'published_year' => 'required|digits:4',
+        ]);
+
+        $author = Author::where('name', $request->author_name)->first();
+        if (!$author) {
+            $author = Author::create([
+                'name' => $request->author_name
+            ]);
+        }
+
+        $book->update([
+            'title' => $request->title,
+            'author_id' => $author->id, // Pakai ID dari author yang ditemukan/dibuat
+            'isbn' => $request->isbn,
+            'published_year' => $request->published_year,
+        ]);
+
+        $categoryIds = $request->categories ? explode(',', $request->categories) : [];
+        $book->categories()->sync($categoryIds);
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Buku berhasil diperbarui.');
     }
 
 }
