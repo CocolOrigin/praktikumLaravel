@@ -47,6 +47,7 @@
                 <thead class="table-light">
                     <tr>
                         <th>Judul Buku</th>
+                        <th>Dibuat Oleh</th>
                         <th>Penulis</th>
                         <th>Tahun</th>
                         <th>Kategori</th>
@@ -63,10 +64,14 @@
                         <td>{{ $book->title }}</td>
 
                         <td>
+                            {{ $book->user ? $book->user->name : 'Anonim' }}
+                        </td>
+
+                        <td>
                             <div class="d-flex align-items-center gap-2">
-                                <a href="{{ route('authors.show', $book->author->id) }}" title="Lihat Profil Penulis" onclick="event.stopPropagation()">
+                                <!-- <a href="{{ route('authors.show', $book->author->id) }}" title="Lihat Profil Penulis" onclick="event.stopPropagation()">
                                     👁
-                                </a>
+                                </a> -->
                                 {{ $book->author->name }}
                             </div>
                         </td>

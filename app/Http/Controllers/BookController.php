@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -36,6 +36,7 @@ class BookController extends Controller
             'isbn' => 'required|unique:books,isbn',
             'published_year' => 'required|digits:4',
         ]);
+        $validated['user_id'] = Auth::id();
 
         $author = Author::where('name', $request->author_name)->first();
         if (!$author) {
@@ -45,6 +46,7 @@ class BookController extends Controller
         }
 
         $book = Book::create([
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'author_id' => $author->id,
             'isbn' => $request->isbn,
@@ -57,6 +59,16 @@ class BookController extends Controller
         return redirect()
             ->route('books.index')
             ->with('success', 'Buku berhasil ditambahkan.');
+    }
+
+    public function delete(Book $book)
+    {
+        $book->categories()->detach();
+        $book->delete();
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Buku berhasil dihapus.');
     }
 
 }
